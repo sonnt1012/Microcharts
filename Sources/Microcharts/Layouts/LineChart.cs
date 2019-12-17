@@ -135,7 +135,7 @@ namespace Microcharts
                     using (var shaderX = this.CreateXGradient(points, (byte)(this.LineAreaAlpha * this.AnimationProgress)))
                     using (var shaderY = this.CreateYGradient(points, (byte)(this.LineAreaAlpha * this.AnimationProgress)))
                     {
-                        paint.Shader = EnableYFadeOutGradient ? SKShader.CreateCompose(shaderY, shaderX, SKBlendMode.SrcOut) : shaderX;
+                        paint.Shader = EnableYFadeOutGradient ? shaderY : shaderX;
 
                         var path = new SKPath();
 
@@ -200,7 +200,7 @@ namespace Microcharts
             return SKShader.CreateLinearGradient(
                 new SKPoint(0, startY),
                 new SKPoint(0, endY),
-                new SKColor[] {SKColors.White.WithAlpha(alpha), SKColors.White.WithAlpha(0)},
+                new SKColor[] {SKColors.White, SKColors.Yellow},
                 null,
                 SKShaderTileMode.Clamp);
         }
