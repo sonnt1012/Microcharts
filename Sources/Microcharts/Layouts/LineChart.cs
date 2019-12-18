@@ -51,6 +51,10 @@ namespace Microcharts
         /// <value>The state of the fadeout gradient.</value>
         public bool EnableYFadeOutGradient { get; set; } = false;
 
+        public bool EnableYSolidGradient { get; set; } = false;
+        public SKColor GradientYColorStart { get; set; }
+        public SKColor GradientYColorEnd { get; set; }
+
         #endregion
 
         #region Methods
@@ -62,7 +66,7 @@ namespace Microcharts
                 var labels = this.Entries.Select(x => x.Label).ToArray();
                 var labelSizes = this.MeasureLabels(labels);
                 var footerHeight = this.CalculateFooterHeaderHeight(labelSizes, this.LabelOrientation, labels);
-                
+
                 var valueLabels = this.Entries.Select(x => x.ValueLabel).ToArray();
                 var valueLabelSizes = this.MeasureLabels(valueLabels);
                 var headerHeight = this.CalculateFooterHeaderHeight(valueLabelSizes, this.ValueLabelOrientation, valueLabels);
@@ -133,12 +137,18 @@ namespace Microcharts
                 })
                 {
                     using (var shaderX = this.CreateXGradient(points, (byte)(this.LineAreaAlpha * this.AnimationProgress)))
-                    using (var shaderY = this.CreateYGradient(points, (byte)(this.LineAreaAlpha * this.AnimationProgress)))
+                    using (var shaderY = this.CreateYGradient(points, origin, (byte)(this.LineAreaAlpha * this.AnimationProgress)))
                     {
-                        paint.Shader = EnableYFadeOutGradient ? shaderY : shaderX;
+                        if (EnableYSolidGradient)
+                        {
+                            paint.Shader = shaderY;
+                        }
+                        else
+                        {
+                            paint.Shader = EnableYFadeOutGradient ? SKShader.CreateCompose(shaderY, shaderX, SKBlendMode.SrcOut) : shaderX;
+                        }
 
                         var path = new SKPath();
-
                         path.MoveTo(points.First().X, origin);
                         path.LineTo(points.First());
 
@@ -157,7 +167,7 @@ namespace Microcharts
                                 path.LineTo(points[i]);
                             }
                         }
-                        
+
                         path.LineTo(points.Last().X, origin);
 
                         path.Close();
@@ -180,7 +190,7 @@ namespace Microcharts
 
         private SKShader CreateXGradient(SKPoint[] points, byte alpha = 255)
         {
-            var startX = points.First().X;
+            var startX = 0;
             var endX = points.Last().X;
             var rangeX = endX - startX;
 
@@ -192,15 +202,14 @@ namespace Microcharts
                 SKShaderTileMode.Clamp);
         }
 
-        private SKShader CreateYGradient(SKPoint[] points, byte alpha = 255)
+        private SKShader CreateYGradient(SKPoint[] points, float origin = 0, byte alpha = 255)
         {
             var startY = points.Max(i => i.Y);
-            var endY = 0;
-
+            var endY = EnableYSolidGradient ? origin : 0;
             return SKShader.CreateLinearGradient(
-                new SKPoint(0, startY),
                 new SKPoint(0, endY),
-                new SKColor[] {SKColors.White, SKColors.Yellow},
+                new SKPoint(0, startY),
+                new SKColor[] { GradientYColorStart, GradientYColorEnd },
                 null,
                 SKShaderTileMode.Clamp);
         }
