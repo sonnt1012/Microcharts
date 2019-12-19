@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Microcharts</id>
-    <version>$version$</version>
+    <version>0.8.4.3-pre</version>
     <title>Microcharts</title>
     <authors>Aloïs Deniel</authors>
     <owners>Aloïs Deniel</owners>

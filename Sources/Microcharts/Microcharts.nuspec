@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
        <id>Microcharts</id>
-        <version>0.8.4.2-pre</version>
+        <version>0.8.4.3-pre</version>
         <title>Microcharts</title>
         <authors>Aloïs Deniel, Joseph Nixon</authors>
         <owners>Aloïs Deniel, Joseph Nixon</owners>
