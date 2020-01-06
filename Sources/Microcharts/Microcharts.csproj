@@ -43,4 +43,36 @@
     <Folder Include="Layouts\" />
     <Folder Include="WeakEventHandlers\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="obj 13.35.35\Debug\portable-net45+win8+wpa81+wp8\Microcharts.AssemblyInfo.cs" />
+    <Compile Remove="obj 13.35.35\Debug\netstandard1.3\Microcharts.AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="obj 13.35.35\Microcharts.csproj.nuget.cache" />
+    <None Remove="obj 13.35.35\Debug\netstandard2.0\Microcharts.csproj.FileListAbsolute.txt" />
+    <None Remove="obj 13.35.35\Debug\portable-net45+win8+wpa81+wp8\Microcharts.csproj.FileListAbsolute.txt" />
+    <None Remove="obj 13.35.35\Debug\portable-net45+win8+wpa81+wp8\Microcharts.csproj.CopyComplete" />
+    <None Remove="obj 13.35.35\Debug\portable-net45+win8+wpa81+wp8\StyleCopViolations.xml" />
+    <None Remove="obj 13.35.35\Debug\portable-net45+win8+wpa81+wp8\Microcharts.pdb" />
+    <None Remove="obj 13.35.35\Debug\portable-net45+win8+wpa81+wp8\Microcharts.AssemblyInfoInputs.cache" />
+    <None Remove="obj 13.35.35\Debug\portable-net45+win8+wpa81+wp8\Microcharts.dll" />
+    <None Remove="obj 13.35.35\Debug\portable-net45+win8+wpa81+wp8\Microcharts.csprojAssemblyReference.cache" />
+    <None Remove="obj 13.35.35\Debug\portable-net45+win8+wpa81+wp8\Microcharts.assets.cache" />
+    <None Remove="obj 13.35.35\Debug\netstandard1.3\Microcharts.csproj.FileListAbsolute.txt" />
+    <None Remove="obj 13.35.35\Debug\netstandard1.3\StyleCopViolations.xml" />
+    <None Remove="obj 13.35.35\Debug\netstandard1.3\Microcharts.pdb" />
+    <None Remove="obj 13.35.35\Debug\netstandard1.3\Microcharts.AssemblyInfoInputs.cache" />
+    <None Remove="obj 13.35.35\Debug\netstandard1.3\Microcharts.dll" />
+    <None Remove="obj 13.35.35\Debug\netstandard1.3\Microcharts.csprojAssemblyReference.cache" />
+    <None Remove="obj 13.35.35\Debug\netstandard1.3\Microcharts.assets.cache" />
+    <None Remove="bin 13.35.35\Debug\portable-net45+win8+wpa81+wp8\Microcharts.xml" />
+    <None Remove="bin 13.35.35\Debug\portable-net45+win8+wpa81+wp8\SkiaSharp.dll" />
+    <None Remove="bin 13.35.35\Debug\portable-net45+win8+wpa81+wp8\Microcharts.pdb" />
+    <None Remove="bin 13.35.35\Debug\portable-net45+win8+wpa81+wp8\System.ValueTuple.dll" />
+    <None Remove="bin 13.35.35\Debug\portable-net45+win8+wpa81+wp8\Microcharts.dll" />
+    <None Remove="bin 13.35.35\Debug\netstandard1.3\Microcharts.xml" />
+    <None Remove="bin 13.35.35\Debug\netstandard1.3\Microcharts.deps.json" />
+    <None Remove="bin 13.35.35\Debug\netstandard1.3\Microcharts.pdb" />
+    <None Remove="bin 13.35.35\Debug\netstandard1.3\Microcharts.dll" />
+  </ItemGroup>
 </Project>

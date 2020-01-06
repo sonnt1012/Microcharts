@@ -74,6 +74,8 @@ namespace Microcharts
             set => this.valueLabelOrientation = (value == Orientation.Default) ? Orientation.Vertical : value;
         }
 
+        public bool FillAndExpandedChart { get; set; }
+
         private float ValueRange => this.MaxValue - this.MinValue;
 
         #endregion
@@ -84,10 +86,10 @@ namespace Microcharts
         {
             if (this.Entries != null)
             {
-                var labels = this.Entries.Select(x => x.Label).ToArray(); 
+                var labels = this.Entries.Select(x => x.Label).ToArray();
                 var labelSizes = this.MeasureLabels(labels);
                 var footerHeight = this.CalculateFooterHeaderHeight(labelSizes, this.LabelOrientation, labels);
-                
+
                 var valueLabels = this.Entries.Select(x => x.ValueLabel).ToArray();
                 var valueLabelSizes = this.MeasureLabels(valueLabels);
                 var headerHeight = this.CalculateFooterHeaderHeight(valueLabelSizes, this.ValueLabelOrientation, valueLabels);
@@ -129,16 +131,35 @@ namespace Microcharts
         protected SKPoint[] CalculatePoints(SKSize itemSize, float origin, float headerHeight)
         {
             var result = new List<SKPoint>();
-
-            for (int i = 0; i < this.Entries.Count(); i++)
+            if (FillAndExpandedChart)
             {
-                var entry = this.Entries.ElementAt(i);
-                var value = entry.Value;
+                var entriesLength = Entries.Count();
+                var firstPoint = new SKPoint(0, headerHeight + ((1 - this.AnimationProgress) * (origin - headerHeight) + (((this.MaxValue - Entries.ElementAt(0).Value) / this.ValueRange) * itemSize.Height) * this.AnimationProgress));
+                var lastPoint = new SKPoint(Margin + (entriesLength) * (itemSize.Width + Margin), headerHeight + ((1 - this.AnimationProgress) * (origin - headerHeight) + (((this.MaxValue - Entries.ElementAt(entriesLength - 1).Value) / this.ValueRange) * itemSize.Height) * this.AnimationProgress));
+                result.Add(firstPoint);
+                for (int i = 1; i < entriesLength - 1; i++)
+                {
+                    var entry = this.Entries.ElementAt(i);
+                    var value = entry.Value;
+                    var x = this.Margin + (itemSize.Width / 2) + (i * (itemSize.Width + this.Margin));
+                    var y = headerHeight + ((1 - this.AnimationProgress) * (origin - headerHeight) + (((this.MaxValue - value) / this.ValueRange) * itemSize.Height) * this.AnimationProgress);
+                    var point = new SKPoint(x, y);
+                    result.Add(point);
+                }
+                result.Add(lastPoint);
+            }
+            else
+            {
+                for (int i = 0; i < this.Entries.Count(); i++)
+                {
+                    var entry = this.Entries.ElementAt(i);
+                    var value = entry.Value;
 
-                var x = this.Margin + (itemSize.Width / 2) + (i * (itemSize.Width + this.Margin));
-                var y = headerHeight + ((1 - this.AnimationProgress) * (origin - headerHeight) + (((this.MaxValue - value) / this.ValueRange) * itemSize.Height) * this.AnimationProgress);
-                var point = new SKPoint(x, y);
-                result.Add(point);
+                    var x = this.Margin + (itemSize.Width / 2) + (i * (itemSize.Width + this.Margin));
+                    var y = headerHeight + ((1 - this.AnimationProgress) * (origin - headerHeight) + (((this.MaxValue - value) / this.ValueRange) * itemSize.Height) * this.AnimationProgress);
+                    var point = new SKPoint(x, y);
+                    result.Add(point);
+                }
             }
 
             return result.ToArray();
